@@ -11,6 +11,7 @@ permissions:
 jobs:
   build:
     strategy:
+      fail-fast: true
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
     runs-on: ${{ matrix.os }}
@@ -23,16 +24,24 @@ jobs:
           node-version: 20
           cache: "npm"
 
+      - name: Install Linux dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libfuse2 \
+            libgtk-3-0 \
+            libnss3 \
+            libasound2 \
+            libxss1 \
+            libxtst6 \
+            libgbm1 \
+            libdrm2 \
+            xvfb
+
       - run: npm ci
 
-      - run: npm run dist
-
-      - name: Upload artifacts to release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            release/**/*.dmg
-            release/**/*.zip
-            release/**/*.exe
-            release/**/*.AppImage
-            release/**/*.deb
+      - name: Build and package
+        run: npm run dist
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
