@@ -27,6 +27,9 @@
     "wait-on": "^8.0.0"
   },
   "description": "A local Kafka desktop viewer for tailing topics with a safe UI.",
-  "author": "Ali Adem",
+  "author": {
+    "name": "Ali Adem",
+    "email": "ali@example.com"
+  },
   "license": "Apache-2.0"
 }
