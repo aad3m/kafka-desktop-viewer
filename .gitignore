@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+
+# builds
+dist/
+dist-electron/
+release/
+out/
+
+# logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# env
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# caches
+.cache/
+electron-builder-cache/
